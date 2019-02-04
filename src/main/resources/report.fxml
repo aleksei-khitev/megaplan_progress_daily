@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<GridPane hgap="5" vgap="5" prefHeight="450" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.akhitev.megaplan.progress.daily.controller.ReportController">
+    <padding>
+        <Insets left="20" top="20" />
+    </padding>
+
+    <Button fx:id="makeReport" text="Сформировать отчет" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+</GridPane>

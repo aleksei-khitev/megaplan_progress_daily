@@ -1,0 +1,28 @@
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+
+<?import java.net.URL?>
+<Pane fx:id="mainPane" style="-fx-background-color: black;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.akhitev.megaplan.progress.daily.controller.MainController">
+    <VBox xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: black;">
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">Ежедневный прогресс сотрудников по MegaPlan</Label>
+        <TabPane prefHeight="370">
+            <Tab text="Внесение данных">
+                <fx:include source="progress.fxml" />
+            </Tab>
+            <Tab text="Редактирование работников">
+                <fx:include source="employee.fxml" />
+            </Tab>
+            <Tab text="Формирование отчета">
+                <fx:include source="report.fxml" />
+            </Tab>
+        </TabPane>
+
+    </VBox>
+
+    <stylesheets>
+        <URL value="@main.css" />
+    </stylesheets>
+</Pane>

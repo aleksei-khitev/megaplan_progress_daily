@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane hgap="5" vgap="5" prefHeight="350" prefWidth="600" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ru.akhitev.megaplan.progress.daily.controller.ProgressController">
+    <padding>
+        <Insets left="20" top="20" />
+    </padding>
+
+    <ComboBox fx:id="editEmployee" style="-fx-background-color: #C0C0C0;" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Button fx:id="refreshButton" text="Обновить"  style="-fx-background-color: #C0C0C0;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <DatePicker fx:id="editDate" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+    <Label GridPane.rowIndex="2" GridPane.columnIndex="0">Взято в работу</Label>
+    <TextField fx:id="tookInWork" prefWidth="75" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="3" GridPane.columnIndex="0">Отказ (наш)</Label>
+    <TextField fx:id="ourRefuges" prefWidth="75" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="4" GridPane.columnIndex="0">Резерв (все причины)</Label>
+    <TextField fx:id="allCausesReserve" prefWidth="75" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="5" GridPane.columnIndex="0">Резерв (низкие)</Label>
+    <TextField fx:id="lowReserve" prefWidth="75" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="6" GridPane.columnIndex="0">Выведенно в работу</Label>
+    <TextField fx:id="launchedInWork" prefWidth="75" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="6" GridPane.columnIndex="2">Доля вывода</Label>
+    <TextField fx:id="launchPortion" editable="false" focusTraversable="false" prefWidth="75" GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+
+    <Label GridPane.rowIndex="7" GridPane.columnIndex="0">Отказ кандидата</Label>
+    <TextField fx:id="candidateRefuges" prefWidth="75" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="7" GridPane.columnIndex="2">Доля отказа</Label>
+    <TextField fx:id="refugesPortion" editable="false" focusTraversable="false" prefWidth="75" GridPane.rowIndex="7" GridPane.columnIndex="3"/>
+
+    <Label GridPane.rowIndex="8" GridPane.columnIndex="0">Средний срок вывода</Label>
+    <TextField fx:id="launchesAverageTerm" prefWidth="75" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="8" GridPane.columnIndex="2">Индекс качества</Label>
+    <TextField fx:id="qualityIndex" editable="false" focusTraversable="false" prefWidth="75" GridPane.rowIndex="8" GridPane.columnIndex="3"/>
+
+    <Button fx:id="saveButton" text="Сохранить" style="-fx-background-color: #C0C0C0;" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+
+</GridPane>
+
+

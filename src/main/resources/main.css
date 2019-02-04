@@ -1,0 +1,43 @@
+
+Label {
+    -font-family: Courier New;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.tab-pane *.tab-header-area *.tab-header-background {
+  -fx-background-color: black;
+}
+
+.tab-pane {
+    -fx-tab-min-width:100px;
+    -fx-tab-max-width:250px;
+    -fx-tab-min-height:25px;
+    -fx-tab-max-height:25px;
+    -fx-background-color: grey;
+}
+
+.tab {
+    -fx-font-family: Courier New;
+    -fx-font-size: 14;
+    -fx-background-color: grey;
+    -fx-padding: 2 3 2 3;
+    -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+}
+
+.tab:selected {
+    -fx-background-color: grey;
+    -fx-font-weight: bold;
+}
+
+.tab-content-area {
+    -fx-background-color: grey;
+}
+
+.tab .tab-label {
+    -fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER;
+    -fx-text-fill: #FFFFFF;
+}
