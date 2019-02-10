@@ -1,4 +1,4 @@
-package ru.akhitev.megaplan.progress.daily.report;
+package ru.akhitev.megaplan.progress.daily.report.charter;
 
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xddf.usermodel.*;
@@ -7,18 +7,24 @@ import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import ru.akhitev.megaplan.progress.daily.report.rows.ReportRow;
 
-class XlsChartCreator {
-    private XSSFSheet sheet;
-    private int dataColumnCount;
+abstract class AbstractXlsChartCreator {
+    XSSFSheet sheet;
+    int startColumn;
+    int dataColumnCount;
 
-    XlsChartCreator(XSSFSheet sheet, int dataColumnCount) {
+    AbstractXlsChartCreator(XSSFSheet sheet, int startColumn, int dataColumnCount) {
         this.sheet = sheet;
+        this.startColumn = startColumn;
         this.dataColumnCount = dataColumnCount;
     }
 
-    void drawGraphic(XlsReportRows xlsReportRow, int leftTopCornerOfChart) {
+    void drawGraphic(ReportRow xlsReportRow, int leftTopCornerOfChart) {
         XSSFChart chart = prepareChartBase(leftTopCornerOfChart);
+        setRoundedCorners(chart, false);
+        chart.setTitleText("BarChart");
+        chart.setTitleOverlay(false);
 
         XDDFCategoryAxis bottomAxis = chart.createCategoryAxis(AxisPosition.BOTTOM);
         bottomAxis.setTitle("Дата");
@@ -32,7 +38,6 @@ class XlsChartCreator {
         XDDFLineChartData.Series series1 = (XDDFLineChartData.Series) data.addSeries(xs, ys1);
         series1.setSmooth(false);
         series1.setMarkerStyle(MarkerStyle.STAR);
-
         chart.plot(data);
 
         solidLineSeries(data, 0, PresetColor.RED);
@@ -41,7 +46,7 @@ class XlsChartCreator {
     private XSSFChart prepareChartBase(int leftTopCornerOfChart) {
         int rightBottomCornerOfChart = leftTopCornerOfChart + 9;
         XSSFDrawing drawing = sheet.createDrawingPatriarch();
-        XSSFClientAnchor anchor = drawing.createAnchor(leftTopCornerOfChart, 0, rightBottomCornerOfChart, 10, 0, leftTopCornerOfChart, 10, rightBottomCornerOfChart);
+        XSSFClientAnchor anchor = drawing.createAnchor(leftTopCornerOfChart, startColumn, rightBottomCornerOfChart, startColumn + 8, startColumn, leftTopCornerOfChart, startColumn + 8, rightBottomCornerOfChart);
         return drawing.createChart(anchor);
     }
 
@@ -55,6 +60,11 @@ class XlsChartCreator {
             properties = new XDDFShapeProperties();
         }
         properties.setLineProperties(line);
+
         series.setShapeProperties(properties);
+    }
+
+    private static void setRoundedCorners(XSSFChart chart, boolean setVal) {
+
     }
 }

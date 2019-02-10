@@ -48,7 +48,18 @@ public class ProgressController extends AbstractController {
     }
 
     private void clearProgressAndFields() {
+        tookInWork.clear();
+        ourRefuges.clear();
+        allCausesReserve.clear();
+        lowReserve.clear();
+        launchedInWork.clear();
+        launchPortion.clear();
+        refugesPortion.clear();
+        candidateRefuges.clear();
+        launchesAverageTerm.clear();
+        qualityIndex.clear();
         progress = new Progress();
+        tookInWork.requestFocus();
     }
 
     private void defineHandlers() {

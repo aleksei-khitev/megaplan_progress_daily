@@ -39,7 +39,7 @@ public class Progress {
     private Double launchesAverageTerm;
 
     public String getFormattedLaunchPortion() {
-        return String.format("%.2f", calculateLaunchPortion()) + "%";
+        return String.format("%.2f", calculateLaunchPortion()*100) + "%";
     }
 
     public double calculateLaunchPortion() {
@@ -60,7 +60,7 @@ public class Progress {
     }
 
     public String getFormattedRefugesPortion() {
-        return String.format("%.2f", calculateRefugesPortion()) + "%";
+        return String.format("%.2f", calculateRefugesPortion()*100) + "%";
     }
 
     public double calculateRefugesPortion() {
