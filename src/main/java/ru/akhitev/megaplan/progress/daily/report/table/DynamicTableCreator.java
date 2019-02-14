@@ -13,8 +13,9 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class DynamicTableCreator extends AbstractTableCreator {
-
+    private static final String HEADER_TEMPLATE = "%s: динамика показателей";
     private static final String DYNAMIC_FORMULA = "(100-%s*100/%s)*(-1)/100";
+    private static final int HEADER_ROW_NUMBER = 13;
 
     public DynamicTableCreator(String employeeName, List<Progress> progresses, XSSFWorkbook workbook, XSSFSheet sheet) {
         super(employeeName, progresses, workbook, sheet);
@@ -29,7 +30,7 @@ public class DynamicTableCreator extends AbstractTableCreator {
     }
 
     private void prepareHeaderCollumn() {
-        writeEmployeeName(employeeName + ": Динамика показателей");
+        writeEmployeeName(String.format(HEADER_TEMPLATE, employeeName));
         CellStyle rowHeaderCellStyle = workbook.createCellStyle();
         rowHeaderCellStyle.setFont(rowHeaderFont);
         for (DynamicTableRows dataTableRows : DynamicTableRows.values()) {
@@ -43,7 +44,7 @@ public class DynamicTableCreator extends AbstractTableCreator {
         headerFont.setFontHeightInPoints((short) 14);
         CellStyle headerCellStyle = workbook.createCellStyle();
         headerCellStyle.setFont(headerFont);
-        Cell employeeNameCell = sheet.createRow(13).createCell(0);
+        Cell employeeNameCell = sheet.createRow(HEADER_ROW_NUMBER).createCell(0);
         employeeNameCell.setCellValue(name);
         employeeNameCell.setCellStyle(headerCellStyle);
     }
@@ -57,15 +58,13 @@ public class DynamicTableCreator extends AbstractTableCreator {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setFont(dateHeaderFont);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
-        Cell headerCell = sheet.getRow(1).createCell(columnNumber);
-        headerCell.setCellValue(progressDate.format(DateTimeFormatter.ofPattern("dd.MM.uuuu")));
+        drawBorders(cellStyle);
+        Cell headerCell = sheet.getRow(HEADER_ROW_NUMBER).createCell(columnNumber);
+        headerCell.setCellValue(progressDate.format(DateTimeFormatter.ofPattern(DATE_TEMPLATE)));
         headerCell.setCellStyle(cellStyle);
     }
 
     private void writeData(int columnNumber) {
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFont(dataFont);
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
         writeFormula(DataTableRows.TOOK_IN_WORK, DynamicTableRows.TOOK_IN_WORK, columnNumber);
         writeFormula(DataTableRows.OUR_REFUGES, DynamicTableRows.OUR_REFUGES, columnNumber);
         writeFormula(DataTableRows.ALL_CAUSES_RESERVE, DynamicTableRows.ALL_CAUSES_RESERVE, columnNumber);
@@ -81,6 +80,7 @@ public class DynamicTableCreator extends AbstractTableCreator {
     private void writeFormula(DataTableRows dataTableRow, DynamicTableRows dynamicTableRow, int columnNumber) {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        drawBorders(cellStyle);
         cellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(BuiltinFormats.getBuiltinFormat(10)));
         Cell headerCell = sheet.getRow(dynamicTableRow.getRowNumber()).createCell(columnNumber);
         headerCell.setCellType(CellType.FORMULA);
@@ -94,7 +94,6 @@ public class DynamicTableCreator extends AbstractTableCreator {
         }
         headerCell.setCellFormula(formula);
         double value = headerCell.getNumericCellValue();
-        System.out.println(value);
         cellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(BuiltinFormats.getBuiltinFormat(10)));
         headerCell.setCellStyle(cellStyle);
         createConditionFormattings(dynamicTableRow, columnNumber);
@@ -103,6 +102,7 @@ public class DynamicTableCreator extends AbstractTableCreator {
     private void createConditionFormattings(DynamicTableRows dynamicTableRow, int columnNumber) {
         createConditionFormatting(dynamicTableRow.getRowNumber(), ComparisonOperator.GT, dynamicTableRow.backgroundColorIfPositive(), columnNumber);
         createConditionFormatting(dynamicTableRow.getRowNumber(), ComparisonOperator.LT, dynamicTableRow.backgroundColorIfNegative(), columnNumber);
+        createConditionFormatting(dynamicTableRow.getRowNumber(), ComparisonOperator.EQUAL, IndexedColors.GREY_25_PERCENT.getIndex(), columnNumber);
     }
 
     private void createConditionFormatting(int rowNumber, byte operation, short color, int columnNumber) {

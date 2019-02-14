@@ -14,11 +14,13 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public class ReportController extends AbstractController {
     private EmployeeRepository employeeRepository;
     private ProgressRepository progressRepository;
-    public Button makeReport;
+    public Button makeReportForWholePeriod;
+    public Button makeReportForCurrentPeriod;
 
     @FXML
     public void initialize() {
@@ -28,13 +30,21 @@ public class ReportController extends AbstractController {
     }
 
     private void defineHandlers() {
-        makeReport.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> prepareReport());
+        makeReportForCurrentPeriod
+                .addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        event -> prepareReport(
+                                prepareData(e -> progressRepository.findByEmployeeCurrentPeriod(e
+                                        , LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 8)))));
+        makeReportForWholePeriod
+                .addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        event -> prepareReport(
+                                prepareData(e -> progressRepository.findByEmployee(e))));
     }
 
-    private void prepareReport() {
+    private void prepareReport(Map<String, List<Progress>> data) {
         XlsWorkReportCreator reportCreator = new XlsWorkReportCreator();
         try {
-            reportCreator.makeReport(prepareData(), prepareReportName());
+            reportCreator.makeReport(data, prepareReportName());
             showMessage("Отчет сформирован");
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,11 +52,11 @@ public class ReportController extends AbstractController {
         }
     }
 
-    private Map<String, List<Progress>> prepareData() {
+    private Map<String, List<Progress>> prepareData(Function<Employee, List<Progress>> function) {
         Map<String, List<Progress>> allProgress = new HashMap<>();
         List<Employee> employees = employeeRepository.findAll();
         employees.forEach( e -> {
-            List<Progress> progresses = progressRepository.findByEmployee(e);
+            List<Progress> progresses = function.apply(e);
             if (!progresses.isEmpty()) {
                 allProgress.put(e.getName(), progresses);
             }
@@ -55,6 +65,7 @@ public class ReportController extends AbstractController {
     }
 
     private String prepareReportName() {
-        return LocalDate.now().toString() + ".xlsx";
+        String fileExtension = ".xlsx";
+        return LocalDate.now().toString() + fileExtension;
     }
 }

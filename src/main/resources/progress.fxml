@@ -4,14 +4,13 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<GridPane hgap="5" vgap="5" prefHeight="350" prefWidth="600" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+<GridPane hgap="5" vgap="5" prefHeight="370" prefWidth="600" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="ru.akhitev.megaplan.progress.daily.controller.ProgressController">
     <padding>
         <Insets left="20" top="20" />
     </padding>
 
     <ComboBox fx:id="editEmployee" style="-fx-background-color: #C0C0C0;" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <Button fx:id="refreshButton" text="Обновить"  style="-fx-background-color: #C0C0C0;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
     <DatePicker fx:id="editDate" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
 

@@ -20,6 +20,17 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+//
+//task fatJar(type: Jar) {
+//    manifest {
+//        attributes 'Implementation-Title': 'Progress Daily',
+//                'Implementation-Version': version,
+//                'Main-Class': 'ru.akhitev.megaplan.progress.daily.Launcher'
+//    }
+//    baseName = project.name + '-all'
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    with jar
+//}
 
 dependencies {
     compile     group: 'org.springframework',       name: 'spring-core',                version: '4.3.4.RELEASE'

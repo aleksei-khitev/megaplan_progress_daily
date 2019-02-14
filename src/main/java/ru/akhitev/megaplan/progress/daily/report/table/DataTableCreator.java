@@ -1,9 +1,6 @@
 package ru.akhitev.megaplan.progress.daily.report.table;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ru.akhitev.megaplan.progress.daily.entity.Progress;
@@ -15,6 +12,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class DataTableCreator extends AbstractTableCreator {
+    private static final String HEADER_TEMPLATE = "%s: просто показатели";
     public DataTableCreator(String employeeName, List<Progress> progresses, XSSFWorkbook workbook, XSSFSheet sheet) {
         super(employeeName, progresses, workbook, sheet);
     }
@@ -29,7 +27,7 @@ public class DataTableCreator extends AbstractTableCreator {
     }
 
     private void prepareHeaderCollumn() {
-        writeEmployeeName(employeeName + ": Просто показатели");
+        writeEmployeeName(String.format(HEADER_TEMPLATE, employeeName));
         sheet.createRow(1);
         CellStyle rowHeaderCellStyle = workbook.createCellStyle();
         rowHeaderCellStyle.setFont(rowHeaderFont);
@@ -58,15 +56,13 @@ public class DataTableCreator extends AbstractTableCreator {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setFont(dateHeaderFont);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        drawBorders(cellStyle);
         Cell headerCell = sheet.getRow(1).createCell(columnNumber);
-        headerCell.setCellValue(progressDate.format(DateTimeFormatter.ofPattern("dd.MM.uuuu")));
+        headerCell.setCellValue(progressDate.format(DateTimeFormatter.ofPattern(DATE_TEMPLATE)));
         headerCell.setCellStyle(cellStyle);
     }
 
     private void writeData(Progress progress, int columnNumber) {
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFont(dataFont);
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.TOOK_IN_WORK, columnNumber, progress.getTookInWork());
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.OUR_REFUGES, columnNumber, progress.getOurRefuges());
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.ALL_CAUSES_RESERVE, columnNumber, progress.getAllCausesReserve());

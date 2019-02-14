@@ -31,7 +31,6 @@ public class ProgressController extends AbstractController {
     public DatePicker editDate;
     public ComboBox<String> editEmployee;
     public Button saveButton;
-    public Button refreshButton;
 
     @FXML
     public void initialize() {
@@ -64,34 +63,47 @@ public class ProgressController extends AbstractController {
 
     private void defineHandlers() {
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> save());
-        refreshButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> initData());
         editEmployee.addEventHandler(ComboBox.ON_SHOWING, e -> updateEditEmployeeList());
         tookInWork.textProperty().addListener((observable, oldValue, newValue) -> {
-            progress.setTookInWork(Integer.valueOf(newValue));
-            setLaunchPortionIfEnouphData();
-            setRefugesPortionIfEnouphData();
+            if (newValue != null && !newValue.equals("")) {
+                progress.setTookInWork(Integer.valueOf(newValue));
+                setLaunchPortionIfEnouphData();
+                setRefugesPortionIfEnouphData();
+            }
         });
         ourRefuges.textProperty().addListener((observable, oldValue, newValue) -> {
-            progress.setOurRefuges(Integer.valueOf(newValue));
-            setLaunchPortionIfEnouphData();
+            if (newValue != null && !newValue.equals("")) {
+                progress.setOurRefuges(Integer.valueOf(newValue));
+                setLaunchPortionIfEnouphData();
+            }
         });
         lowReserve.textProperty().addListener((observable, oldValue, newValue) -> {
-            progress.setLowReserve(Integer.valueOf(newValue));
+            if (newValue != null && !newValue.equals("")) {
+                progress.setLowReserve(Integer.valueOf(newValue));
+            }
         });
         allCausesReserve.textProperty().addListener((observable, oldValue, newValue) -> {
-            progress.setAllCausesReserve(Integer.valueOf(newValue));
-            setLaunchPortionIfEnouphData();
+            if (newValue != null && !newValue.equals("")) {
+                progress.setAllCausesReserve(Integer.valueOf(newValue));
+                setLaunchPortionIfEnouphData();
+            }
         });
         launchedInWork.textProperty().addListener((observable, oldValue, newValue) -> {
-            progress.setLaunchedInWork(Integer.valueOf(newValue));
-            setLaunchPortionIfEnouphData();
+            if (newValue != null && !newValue.equals("")) {
+                progress.setLaunchedInWork(Integer.valueOf(newValue));
+                setLaunchPortionIfEnouphData();
+            }
         });
         candidateRefuges.textProperty().addListener((observable, oldValue, newValue) -> {
-            progress.setCandidateRefuges(Integer.valueOf(newValue));
-            setRefugesPortionIfEnouphData();
+            if (newValue != null && !newValue.equals("")) {
+                progress.setCandidateRefuges(Integer.valueOf(newValue));
+                setRefugesPortionIfEnouphData();
+            }
         });
         launchesAverageTerm.textProperty().addListener((observable, oldValue, newValue) -> {
-            progress.setLaunchesAverageTerm(Double.valueOf(newValue));
+            if (newValue != null && !newValue.equals("")) {
+                progress.setLaunchesAverageTerm(Double.valueOf(newValue.replaceAll(",", ".")));
+            }
         });
     }
 

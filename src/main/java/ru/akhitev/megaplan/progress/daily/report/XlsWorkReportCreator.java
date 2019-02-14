@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public class XlsWorkReportCreator {
-    XSSFWorkbook workbook;
+    private XSSFWorkbook workbook;
 
     public void makeReport(Map<String, List<Progress>> allProgresses, String fileName) throws IOException {
         workbook = new XSSFWorkbook();
-        allProgresses.entrySet().forEach(entry -> {
-            XlsSheetCreator sheetCreator = new XlsSheetCreator(entry.getValue(), workbook, entry.getKey());
+        allProgresses.forEach((key, value) -> {
+            XlsSheetCreator sheetCreator = new XlsSheetCreator(value, workbook, key);
             sheetCreator.prepareSheet();
         });
         writeAndCloseBook(fileName);
