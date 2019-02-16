@@ -10,16 +10,19 @@ import ru.akhitev.megaplan.progress.daily.repo.EmployeeRepository;
 import ru.akhitev.megaplan.progress.daily.repo.ProgressRepository;
 import ru.akhitev.megaplan.progress.daily.report.XlsWorkReportCreator;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ReportController extends AbstractController {
     private EmployeeRepository employeeRepository;
     private ProgressRepository progressRepository;
     public Button makeReportForWholePeriod;
+    public Button makeReportForCurrentPeriodWithStep7;
     public Button makeReportForCurrentPeriod;
 
     @FXML
@@ -35,6 +38,11 @@ public class ReportController extends AbstractController {
                         event -> prepareReport(
                                 prepareData(e -> progressRepository.findByEmployeeCurrentPeriod(e
                                         , LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 8)))));
+        makeReportForCurrentPeriodWithStep7.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event -> prepareReport(
+                        prepareData(e -> progressRepository.findByEmployeeCurrentPeriod(e
+                                , LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 8))
+                        .stream().filter( p -> p.getProgressDate().getDayOfWeek().equals(DayOfWeek.FRIDAY)).collect(Collectors.toList()))));
         makeReportForWholePeriod
                 .addEventHandler(MouseEvent.MOUSE_CLICKED,
                         event -> prepareReport(

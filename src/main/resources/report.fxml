@@ -10,6 +10,6 @@
     </padding>
 
     <Button fx:id="makeReportForCurrentPeriod" text="Сформировать отчет за текущий период" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-
-    <Button fx:id="makeReportForWholePeriod" text="Сформировать отчет за весь период" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+    <Button fx:id="makeReportForCurrentPeriodWithStep7" text="Сформировать отчет за текущий период (только пятницы)" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+    <Button fx:id="makeReportForWholePeriod" text="Сформировать отчет за весь период" GridPane.rowIndex="4" GridPane.columnIndex="0" />
 </GridPane>

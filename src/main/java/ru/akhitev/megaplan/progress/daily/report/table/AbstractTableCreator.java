@@ -9,7 +9,7 @@ import ru.akhitev.megaplan.progress.daily.report.rows.ReportRow;
 import java.util.List;
 
 abstract class AbstractTableCreator {
-    static final String DATE_TEMPLATE = "dd.MM.uuuu";
+    static final String DATE_TEMPLATE = "dd.MM";
     String employeeName;
     List<Progress> progresses;
     XSSFWorkbook workbook;
@@ -29,7 +29,7 @@ abstract class AbstractTableCreator {
     }
 
     void prepareHeaderCell(Sheet sheet, ReportRow reportRow, CellStyle headerCellStyle) {
-        drawBorders(headerCellStyle);
+        drawBorders(headerCellStyle, BorderStyle.THIN);
         Cell headerCell = sheet.createRow(reportRow.getRowNumber()).createCell(0);
         headerCell.setCellStyle(headerCellStyle);
         headerCell.setCellValue(reportRow.getRowHeader());
@@ -39,7 +39,7 @@ abstract class AbstractTableCreator {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setFont(font);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
-        drawBorders(cellStyle);
+        drawBorders(cellStyle, BorderStyle.THIN);
         Cell headerCell = sheet.getRow(reportRow.getRowNumber()).createCell(columnNumber);
         headerCell.setCellValue(value);
         headerCell.setCellStyle(cellStyle);
@@ -48,7 +48,7 @@ abstract class AbstractTableCreator {
     void writeDoubleData(Sheet sheet, Workbook workbook, Font font, ReportRow reportRow, int columnNumber, double value) {
         CellStyle cellStyle = prepareDataCellStyleBase(workbook, font);
         cellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat("0.00"));
-        drawBorders(cellStyle);
+        drawBorders(cellStyle, BorderStyle.THIN);
         Cell headerCell = sheet.getRow(reportRow.getRowNumber()).createCell(columnNumber);
         headerCell.setCellValue(value);
         headerCell.setCellStyle(cellStyle);
@@ -57,7 +57,7 @@ abstract class AbstractTableCreator {
     void writePercentageData(Sheet sheet, Workbook workbook, Font font, ReportRow reportRow, int columnNumber, double value) {
         CellStyle cellStyle = prepareDataCellStyleBase(workbook, font);
         cellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(BuiltinFormats.getBuiltinFormat(10)));
-        drawBorders(cellStyle);
+        drawBorders(cellStyle, BorderStyle.THIN);
         Cell headerCell = sheet.getRow(reportRow.getRowNumber()).createCell(columnNumber);
         headerCell.setCellValue(value);
         headerCell.setCellStyle(cellStyle);
@@ -73,7 +73,6 @@ abstract class AbstractTableCreator {
     private Font prepareRowHeaderFont() {
         Font font = workbook.createFont();
         font.setBold(true);
-        font.setColor(IndexedColors.VIOLET.getIndex());
         font.setFontHeightInPoints((short) 12);
         return font;
     }
@@ -93,10 +92,10 @@ abstract class AbstractTableCreator {
         return font;
     }
 
-    protected void drawBorders(CellStyle cellStyle) {
-        cellStyle.setBorderTop(BorderStyle.MEDIUM);
-        cellStyle.setBorderLeft(BorderStyle.MEDIUM);
-        cellStyle.setBorderRight(BorderStyle.MEDIUM);
-        cellStyle.setBorderBottom(BorderStyle.MEDIUM);
+    protected void drawBorders(CellStyle cellStyle, BorderStyle borderStyle) {
+        cellStyle.setBorderTop(borderStyle);
+        cellStyle.setBorderLeft(borderStyle);
+        cellStyle.setBorderRight(borderStyle);
+        cellStyle.setBorderBottom(borderStyle);
     }
 }

@@ -58,7 +58,7 @@ public class DynamicTableCreator extends AbstractTableCreator {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setFont(dateHeaderFont);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
-        drawBorders(cellStyle);
+        drawBorders(cellStyle, BorderStyle.THIN);
         Cell headerCell = sheet.getRow(HEADER_ROW_NUMBER).createCell(columnNumber);
         headerCell.setCellValue(progressDate.format(DateTimeFormatter.ofPattern(DATE_TEMPLATE)));
         headerCell.setCellStyle(cellStyle);
@@ -80,7 +80,7 @@ public class DynamicTableCreator extends AbstractTableCreator {
     private void writeFormula(DataTableRows dataTableRow, DynamicTableRows dynamicTableRow, int columnNumber) {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
-        drawBorders(cellStyle);
+        drawBorders(cellStyle, BorderStyle.THIN);
         cellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(BuiltinFormats.getBuiltinFormat(10)));
         Cell headerCell = sheet.getRow(dynamicTableRow.getRowNumber()).createCell(columnNumber);
         headerCell.setCellType(CellType.FORMULA);

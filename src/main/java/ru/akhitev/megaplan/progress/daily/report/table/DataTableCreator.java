@@ -56,7 +56,7 @@ public class DataTableCreator extends AbstractTableCreator {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setFont(dateHeaderFont);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
-        drawBorders(cellStyle);
+        drawBorders(cellStyle, BorderStyle.THIN);
         Cell headerCell = sheet.getRow(1).createCell(columnNumber);
         headerCell.setCellValue(progressDate.format(DateTimeFormatter.ofPattern(DATE_TEMPLATE)));
         headerCell.setCellStyle(cellStyle);
