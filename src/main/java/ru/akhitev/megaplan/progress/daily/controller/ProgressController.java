@@ -31,6 +31,7 @@ public class ProgressController extends AbstractController {
     public DatePicker editDate;
     public ComboBox<String> editEmployee;
     public Button saveButton;
+    public Label status;
 
     @FXML
     public void initialize() {
@@ -130,11 +131,11 @@ public class ProgressController extends AbstractController {
         try {
             validate();
             progressRepository.save(progress);
-            showMessage("Данные сохранены");
+            status.setText("Данные сохранены для " + progress.getEmployee().getName());
             clearProgressAndFields();
         } catch (Exception e) {
             e.printStackTrace();
-            showMessage(e.getMessage());
+            status.setText(e.getMessage());
         }
     }
 

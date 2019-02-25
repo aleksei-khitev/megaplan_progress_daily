@@ -46,6 +46,8 @@
 
     <Button fx:id="saveButton" text="Сохранить" style="-fx-background-color: #C0C0C0;" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
 
+    <Label fx:id="status" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+
 </GridPane>
 
 

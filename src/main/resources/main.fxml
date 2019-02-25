@@ -12,6 +12,9 @@
             <Tab text="Внесение данных">
                 <fx:include source="progress.fxml" />
             </Tab>
+            <Tab text="Таблица">
+                <fx:include source="table_input.fxml" />
+            </Tab>
             <Tab text="Редактирование работников">
                 <fx:include source="employee.fxml" />
             </Tab>
