@@ -30,6 +30,7 @@ public class ProgressController extends AbstractController {
     public TextField qualityIndex;
     public DatePicker editDate;
     public ComboBox<String> editEmployee;
+    public Button open;
     public Button saveButton;
     public Label status;
 
@@ -63,6 +64,7 @@ public class ProgressController extends AbstractController {
     }
 
     private void defineHandlers() {
+        open.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> open());
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> save());
         editEmployee.addEventHandler(ComboBox.ON_SHOWING, e -> updateEditEmployeeList());
         tookInWork.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -125,6 +127,23 @@ public class ProgressController extends AbstractController {
 
     private void updateIndexIfEnouphData() {
         qualityIndex.setText(progress.getFormattedQualityIndex());
+    }
+
+    private void open() {
+        getEmployeeFromDao().ifPresent(employee -> {
+            LocalDate date = editDate.getValue();
+            List<Progress> progresses = progressRepository.findByEmployeeAndProgressDate(employee, date);
+            if (!progresses.isEmpty()) {
+                progress = progresses.get(0);
+                tookInWork.setText(String.valueOf(progress.getTookInWork()));
+                ourRefuges.setText(String.valueOf(progress.getOurRefuges()));
+                allCausesReserve.setText(String.valueOf(progress.getAllCausesReserve()));
+                lowReserve.setText(String.valueOf(progress.getLowReserve()));
+                launchedInWork.setText(String.valueOf(progress.getLaunchedInWork()));
+                candidateRefuges.setText(String.valueOf(progress.getCandidateRefuges()));
+                launchesAverageTerm.setText(String.valueOf(progress.getLaunchesAverageTerm()));
+            }
+        });
     }
 
     private void save() {

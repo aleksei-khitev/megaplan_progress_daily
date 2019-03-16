@@ -3,12 +3,15 @@ package ru.akhitev.megaplan.progress.daily.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.converter.IntegerStringConverter;
 import ru.akhitev.megaplan.progress.daily.Launcher;
@@ -27,6 +30,7 @@ public class TableInputController extends AbstractController {
     private EmployeeRepository employeeRepository;
     private ProgressRepository progressRepository;
     private ObservableList<Progress> progresses = FXCollections.observableArrayList();
+    public DatePicker editDate;
     public TableView<Progress> progressTable;
     public Button save;
 
@@ -34,13 +38,14 @@ public class TableInputController extends AbstractController {
     public void initialize() {
         employeeRepository = Launcher.getSpringContext().getBean(EmployeeRepository.class);
         progressRepository = Launcher.getSpringContext().getBean(ProgressRepository.class);
+        editDate.setValue(LocalDate.now());
         prepareTable();
         prepareColumns();
         prepareTableRows();
         prepareContextMenu();
         save.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             progressTable.getItems().forEach(p -> {
-                p.setProgressDate(LocalDate.now());
+                p.setProgressDate(editDate.getValue());
                 p.validateForSave();
                 progressRepository.save(p);
             });
@@ -55,53 +60,56 @@ public class TableInputController extends AbstractController {
     }
 
     private void prepareColumns() {
-        TableColumn<Progress, String> employeeName = new TableColumn<>("Сотрудник");
+        TableColumn<Progress, String> employeeName = new TableColumn<>();
         employeeName.setCellValueFactory(new PropertyValueFactory<>("employee"));
-        employeeName.setPrefWidth(40);
-        progressTable.getColumns().add(employeeName);
 
-        TableColumn<Progress, Integer> tookInWork = new TableColumn<>("Взято в работу");
-        tookInWork.setPrefWidth(40);
+        progressTable.getColumns().add(prepareColumnHeader(employeeName, "Сотрудник", 110));
+
+        TableColumn<Progress, Integer> tookInWork = new TableColumn<>();
         tookInWork.setCellValueFactory(new PropertyValueFactory<>("tookInWork"));
         tookInWork.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        progressTable.getColumns().add(tookInWork);
+        progressTable.getColumns().add(prepareColumnHeader(tookInWork, "Взято в работу", 40));
 
-        TableColumn<Progress, Integer> ourRefuges = new TableColumn<>("Отказ (наш)");
-        tookInWork.setPrefWidth(40);
+        TableColumn<Progress, Integer> ourRefuges = new TableColumn<>();
         ourRefuges.setCellValueFactory(new PropertyValueFactory<>("ourRefuges"));
-        progressTable.getColumns().add(ourRefuges);
+        progressTable.getColumns().add(prepareColumnHeader(ourRefuges, "Отказ (наш)", 40));
 
-        TableColumn<Progress, Integer> allCausesReserve = new TableColumn<>("Резерв (все причины)");
-        tookInWork.setPrefWidth(40);
+        TableColumn<Progress, Integer> allCausesReserve = new TableColumn<>();
         allCausesReserve.setCellValueFactory(new PropertyValueFactory<>("allCausesReserve"));
-        progressTable.getColumns().add(allCausesReserve);
+        progressTable.getColumns().add(prepareColumnHeader(allCausesReserve, "Резерв (все причины)", 40));
 
-        TableColumn<Progress, Integer> lowReserve = new TableColumn<>("Резерв (низкие)");
-        tookInWork.setPrefWidth(40);
+        TableColumn<Progress, Integer> lowReserve = new TableColumn<>();
         lowReserve.setCellValueFactory(new PropertyValueFactory<>("lowReserve"));
-        progressTable.getColumns().add(lowReserve);
+        progressTable.getColumns().add(prepareColumnHeader(lowReserve, "Резерв (низкие)", 40));
 
-        TableColumn<Progress, Integer> launchedInWork = new TableColumn<>("Выведенно в работу");
-        tookInWork.setPrefWidth(40);
+        TableColumn<Progress, Integer> launchedInWork = new TableColumn<>();
         launchedInWork.setCellValueFactory(new PropertyValueFactory<>("launchedInWork"));
-        progressTable.getColumns().add(launchedInWork);
+        progressTable.getColumns().add(prepareColumnHeader(launchedInWork, "Выведенно в работу", 40));
 
-        TableColumn<Progress, Integer> candidateRefuges = new TableColumn<>("Отказ кандидата");
-        tookInWork.setPrefWidth(40);
+        TableColumn<Progress, Integer> candidateRefuges = new TableColumn<>();
         candidateRefuges.setCellValueFactory(new PropertyValueFactory<>("candidateRefuges"));
-        progressTable.getColumns().add(candidateRefuges);
+        progressTable.getColumns().add(prepareColumnHeader(candidateRefuges, "Отказ кандидата", 40));
 
-        TableColumn<Progress, Double> launchesAverageTerm = new TableColumn<>("Средний срок вывода");
-        tookInWork.setPrefWidth(40);
+        TableColumn<Progress, Double> launchesAverageTerm = new TableColumn<>();
         launchesAverageTerm.setCellValueFactory(new PropertyValueFactory<>("launchesAverageTerm"));
-        progressTable.getColumns().add(launchesAverageTerm);
+        progressTable.getColumns().add(prepareColumnHeader(launchesAverageTerm, "Средний срок вывода", 60));
 
         for (Progress progress : progresses) {
             progress.validateForSave();
             progressRepository.save(progress);
         }
+    }
 
-
+    private <T extends Object> TableColumn<Progress, T>  prepareColumnHeader(TableColumn<Progress, T> column, String title, int prefWidth) {
+        column.setPrefWidth(prefWidth);
+        Label label = new Label(title);
+        label.setStyle("-fx-font-weight: normal; -fx-text-fill: black;");
+        VBox vbox = new VBox(label);
+        vbox.setRotate(-90);
+        vbox.setPadding(new Insets(5, 5, 5, 5));
+        Group group = new Group(vbox);
+        column.setGraphic(group);
+        return column;
     }
 
     private void prepareTableRows() {

@@ -12,6 +12,11 @@ import java.util.List;
 public interface ProgressRepository extends JpaRepository<Progress, Integer> {
     List<Progress> findByEmployee(Employee employee);
 
+    List<Progress> findByEmployeeAndProgressDate(@Param("employee") Employee employee, @Param("startOfPeriod") LocalDate progressDate);
+
     @Query("select p from Progress p where p.progressDate >= :startOfPeriod and p.employee = :employee")
     List<Progress> findByEmployeeCurrentPeriod(@Param("employee") Employee employee, @Param("startOfPeriod") LocalDate startOfPeriod);
+
+    @Query("select p from Progress p where p.progressDate >= :startOfPeriod and p.progressDate < :endOfPeriod and p.employee = :employee")
+    List<Progress> findByEmployeeCurrentPeriod(@Param("employee") Employee employee, @Param("startOfPeriod") LocalDate startOfPeriod, @Param("endOfPeriod") LocalDate endOfPeriod);
 }
