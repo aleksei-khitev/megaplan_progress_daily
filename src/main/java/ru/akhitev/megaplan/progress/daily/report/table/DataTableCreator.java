@@ -66,7 +66,6 @@ public class DataTableCreator extends AbstractTableCreator {
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.TOOK_IN_WORK, columnNumber, progress.getTookInWork());
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.OUR_REFUGES, columnNumber, progress.getOurRefuges());
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.ALL_CAUSES_RESERVE, columnNumber, progress.getAllCausesReserve());
-        writeIntegerData(sheet, workbook, dataFont, DataTableRows.LOW_RESERVE, columnNumber, progress.getLowReserve());
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.LAUNCHED_IN_WORK, columnNumber, progress.getLaunchedInWork());
         writeIntegerData(sheet, workbook, dataFont, DataTableRows.CANDIDATE_REFUGES, columnNumber, progress.getCandidateRefuges());
         writeDoubleData(sheet, workbook, dataFont, DataTableRows.LAUNCHES_AVERAGE_TERM, columnNumber, progress.getLaunchesAverageTerm());

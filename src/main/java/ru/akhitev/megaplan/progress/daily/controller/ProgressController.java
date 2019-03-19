@@ -21,7 +21,6 @@ public class ProgressController extends AbstractController {
     public TextField tookInWork;
     public TextField ourRefuges;
     public TextField allCausesReserve;
-    public TextField lowReserve;
     public TextField launchedInWork;
     public TextField launchPortion;
     public TextField refugesPortion;
@@ -52,7 +51,6 @@ public class ProgressController extends AbstractController {
         tookInWork.clear();
         ourRefuges.clear();
         allCausesReserve.clear();
-        lowReserve.clear();
         launchedInWork.clear();
         launchPortion.clear();
         refugesPortion.clear();
@@ -78,11 +76,6 @@ public class ProgressController extends AbstractController {
             if (newValue != null && !newValue.equals("")) {
                 progress.setOurRefuges(Integer.valueOf(newValue));
                 setLaunchPortionIfEnouphData();
-            }
-        });
-        lowReserve.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && !newValue.equals("")) {
-                progress.setLowReserve(Integer.valueOf(newValue));
             }
         });
         allCausesReserve.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -138,7 +131,6 @@ public class ProgressController extends AbstractController {
                 tookInWork.setText(String.valueOf(progress.getTookInWork()));
                 ourRefuges.setText(String.valueOf(progress.getOurRefuges()));
                 allCausesReserve.setText(String.valueOf(progress.getAllCausesReserve()));
-                lowReserve.setText(String.valueOf(progress.getLowReserve()));
                 launchedInWork.setText(String.valueOf(progress.getLaunchedInWork()));
                 candidateRefuges.setText(String.valueOf(progress.getCandidateRefuges()));
                 launchesAverageTerm.setText(String.valueOf(progress.getLaunchesAverageTerm()));

@@ -16,6 +16,6 @@
     <TextField fx:id="employeeName" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
     <Button fx:id="addButton" text="Добавить" GridPane.rowIndex="1" GridPane.columnIndex="0" />
 
-    <Label GridPane.rowIndex="2" GridPane.columnIndex="0">Добавленный прогресс</Label>
     <ListView fx:id="employees" prefHeight="95.0" prefWidth="150.0" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <Button fx:id="removeButton" text="Удалить"  GridPane.rowIndex="3" GridPane.columnIndex="2" />
 </GridPane>

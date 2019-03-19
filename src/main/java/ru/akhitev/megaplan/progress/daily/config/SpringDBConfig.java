@@ -24,7 +24,7 @@ public class SpringDBConfig {
 
 
     @Bean
-    public DataSource dataSource() {
+    DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
         dataSource.setUrl("jdbc:h2:file:./data/daily_progress;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
@@ -42,7 +42,7 @@ public class SpringDBConfig {
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
+    EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter());
         factory.setPackagesToScan(Progress.class.getPackage().getName());

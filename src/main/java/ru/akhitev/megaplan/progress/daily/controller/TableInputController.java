@@ -78,10 +78,6 @@ public class TableInputController extends AbstractController {
         allCausesReserve.setCellValueFactory(new PropertyValueFactory<>("allCausesReserve"));
         progressTable.getColumns().add(prepareColumnHeader(allCausesReserve, "Резерв (все причины)", 40));
 
-        TableColumn<Progress, Integer> lowReserve = new TableColumn<>();
-        lowReserve.setCellValueFactory(new PropertyValueFactory<>("lowReserve"));
-        progressTable.getColumns().add(prepareColumnHeader(lowReserve, "Резерв (низкие)", 40));
-
         TableColumn<Progress, Integer> launchedInWork = new TableColumn<>();
         launchedInWork.setCellValueFactory(new PropertyValueFactory<>("launchedInWork"));
         progressTable.getColumns().add(prepareColumnHeader(launchedInWork, "Выведенно в работу", 40));
@@ -162,9 +158,6 @@ public class TableInputController extends AbstractController {
             }
             if ("Резерв, все причины".equals(header[i].trim())) {
                 progress.setAllCausesReserve(Integer.parseInt(row[i]));
-            }
-            if ("Резерв, низкие уровни".equals(header[i].trim())) {
-                progress.setLowReserve(Integer.parseInt(row[i]));
             }
             if ("Выведено в работу".equals(header[i].trim())) {
                 progress.setLaunchedInWork(Integer.parseInt(row[i]));

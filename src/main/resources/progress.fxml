@@ -24,9 +24,6 @@
     <Label GridPane.rowIndex="4" GridPane.columnIndex="0">Резерв (все причины)</Label>
     <TextField fx:id="allCausesReserve" prefWidth="75" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-    <Label GridPane.rowIndex="5" GridPane.columnIndex="0">Резерв (низкие)</Label>
-    <TextField fx:id="lowReserve" prefWidth="75" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-
     <Label GridPane.rowIndex="6" GridPane.columnIndex="0">Выведенно в работу</Label>
     <TextField fx:id="launchedInWork" prefWidth="75" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 

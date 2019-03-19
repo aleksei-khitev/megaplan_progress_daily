@@ -111,9 +111,6 @@ public class Progress {
         if (allCausesReserve == null) {
             throw new IllegalArgumentException("Резерв (все причины) не задано", null);
         }
-        if (lowReserve == null) {
-            throw new IllegalArgumentException("Резерв (низкие) не задано", null);
-        }
         if (launchedInWork == null) {
             throw new IllegalArgumentException("Выведенно в работу не задано", null);
         }

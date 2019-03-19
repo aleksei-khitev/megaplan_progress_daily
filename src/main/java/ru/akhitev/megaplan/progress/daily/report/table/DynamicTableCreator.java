@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 public class DynamicTableCreator extends AbstractTableCreator {
     private static final String HEADER_TEMPLATE = "%s: динамика показателей";
     private static final String DYNAMIC_FORMULA = "(100-%s*100/%s)*(-1)/100";
-    private static final int HEADER_ROW_NUMBER = 13;
+    private static final int HEADER_ROW_NUMBER = 12;
 
     public DynamicTableCreator(String employeeName, List<Progress> progresses, XSSFWorkbook workbook, XSSFSheet sheet) {
         super(employeeName, progresses, workbook, sheet);
@@ -68,7 +68,6 @@ public class DynamicTableCreator extends AbstractTableCreator {
         writeFormula(DataTableRows.TOOK_IN_WORK, DynamicTableRows.TOOK_IN_WORK, columnNumber);
         writeFormula(DataTableRows.OUR_REFUGES, DynamicTableRows.OUR_REFUGES, columnNumber);
         writeFormula(DataTableRows.ALL_CAUSES_RESERVE, DynamicTableRows.ALL_CAUSES_RESERVE, columnNumber);
-        writeFormula(DataTableRows.LOW_RESERVE, DynamicTableRows.LOW_RESERVE, columnNumber);
         writeFormula(DataTableRows.LAUNCHED_IN_WORK, DynamicTableRows.LAUNCHED_IN_WORK, columnNumber);
         writeFormula(DataTableRows.CANDIDATE_REFUGES, DynamicTableRows.CANDIDATE_REFUGES, columnNumber);
         writeFormula(DataTableRows.LAUNCHES_AVERAGE_TERM, DynamicTableRows.LAUNCHES_AVERAGE_TERM, columnNumber);

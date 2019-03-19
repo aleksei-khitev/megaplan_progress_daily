@@ -10,7 +10,7 @@ import ru.akhitev.megaplan.progress.daily.report.table.DynamicTableCreator;
 import java.util.List;
 
 class XlsSheetCreator {
-    private static final int DATA_CHARTER_TOP_ROW = 27;
+    private static final int DATA_CHARTER_TOP_ROW = 26;
     private DataTableCreator dataTableCreator;
     private DynamicTableCreator dynamicTableCreator;
     private DataChartersCreatorAbstract dataChartersCreator;
